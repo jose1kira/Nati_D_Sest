@@ -1,0 +1,190 @@
+/* Estilos Generales */
+body {
+    font-family: sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+    color: #333;
+    display: flex; /* Usado para centrar la pantalla de acceso inicial */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Contenedores de Pantalla */
+#access-screen,
+#main-screen {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px; /* Ancho máximo para pantallas grandes */
+    text-align: center;
+}
+
+#main-screen {
+    text-align: left; /* Restablecer alineación para el contenido principal */
+}
+
+/* Ocultar/Mostrar Pantallas */
+.hidden {
+    display: none;
+}
+
+/* Encabezados */
+h1, h2 {
+    color: #0056b3; /* Un azul oscuro */
+    margin-bottom: 15px;
+}
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Formulario de Acceso */
+#access-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#access-form input[type="password"] {
+    width: calc(100% - 22px); /* Ajustar ancho considerando padding/border */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#access-form button {
+    padding: 10px 20px;
+    background-color: #007bff; /* Azul primario */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#access-form button:hover {
+    background-color: #0056b3; /* Azul más oscuro al pasar el ratón */
+}
+
+/* Mensajes de error/éxito */
+.error {
+    color: #dc3545; /* Rojo */
+    font-size: 0.9em;
+    margin-top: 10px;
+    min-height: 1.2em; /* Para evitar saltos de layout */
+}
+.success {
+    color: #28a745; /* Verde */
+    font-size: 0.9em;
+    margin-top: 10px;
+    min-height: 1.2em;
+}
+
+
+/* Pantalla Principal: Contenedor de Cajas */
+.container {
+    display: flex;
+    gap: 30px; /* Espacio entre las cajas */
+    margin-bottom: 30px;
+}
+
+/* Cajas Izquierda y Derecha */
+#quote-options,
+#selected-quote-area {
+    flex: 1; /* Hace que ambas cajas ocupen el mismo espacio */
+    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    min-height: 250px; /* Altura mínima para visualización */
+}
+
+/* Lista de Citas */
+#quote-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 300px; /* Permitir scroll si hay muchas citas */
+    overflow-y: auto;
+}
+
+.quote-item {
+    padding: 10px;
+    margin-bottom: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.quote-item:hover, .quote-item:focus {
+    background-color: #e9ecef; /* Gris claro al pasar el ratón o enfocar */
+    border-color: #007bff;
+    outline: none; /* Quitar el borde de foco por defecto si se personaliza */
+}
+
+.quote-item.selected {
+    background-color: #d1ecf1; /* Un azul claro para indicar selección */
+    border-color: #007bff;
+    font-weight: bold;
+}
+
+
+/* Área de Cita Seleccionada */
+#selected-quote-display {
+    margin-top: 10px;
+    padding: 15px;
+    background-color: #e2e3e5; /* Un fondo grisáceo */
+    border-radius: 4px;
+    min-height: 50px; /* Para que tenga algo de espacio */
+    font-style: italic;
+}
+
+/* Botón de Confirmación */
+footer {
+    text-align: center; /* Centrar el botón y mensaje de confirmación */
+}
+
+#confirm-button {
+    padding: 12px 25px;
+    background-color: #28a745; /* Verde */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+}
+
+#confirm-button:hover {
+    background-color: #218838; /* Verde más oscuro */
+}
+
+/* Responsividad Básica */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    #access-screen,
+    #main-screen {
+        padding: 20px;
+    }
+    .container {
+        flex-direction: column; /* Apilar las cajas en pantallas pequeñas */
+        gap: 20px;
+    }
+    #quote-options,
+    #selected-quote-area {
+        min-height: 150px; /* Reducir altura mínima en móvil */
+    }
+    #quote-list {
+        max-height: 200px; /* Reducir altura máxima de la lista */
+    }
+}

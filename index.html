@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selector de Citas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <section id="access-screen">
+        <h1>Acceso Restringido</h1>
+        <form id="access-form">
+            <label for="secret-word">Palabra Secreta:</label>
+            <input type="password" id="secret-word" name="secret-word" required>
+            <button type="submit">Entrar</button>
+            <p id="error-message" class="error"></p>
+        </form>
+    </section>
+
+    <section id="main-screen" class="hidden">
+        <header>
+            <h1>Elige tu cita</h1>
+        </header>
+
+        <div class="container">
+            <div id="quote-options">
+                <h2>Opciones Disponibles:</h2>
+                <ul id="quote-list">
+                    <li class="quote-item" tabindex="0">"La vida es lo que pasa mientras estás ocupado haciendo otros planes." - John Lennon</li>
+                    <li class="quote-item" tabindex="0">"El único modo de hacer un gran trabajo es amar lo que haces." - Steve Jobs</li>
+                    <li class="quote-item" tabindex="0">"No cuentes los días, haz que los días cuenten." - Muhammad Ali</li>
+                    <li class="quote-item" tabindex="0">"El éxito es la suma de pequeños esfuerzos repetidos día tras día." - Robert Collier</li>
+                    <li class="quote-item" tabindex="0">"La felicidad no es algo hecho. Proviene de tus propias acciones." - Dalai Lama</li>
+                    <li class="quote-item" tabindex="0">"Cree que puedes y ya estás a medio camino." - Theodore Roosevelt</li>
+                    <li class="quote-item" tabindex="0">"La mejor venganza es un éxito masivo." - Frank Sinatra</li>
+                    <li class="quote-item" tabindex="0">"La imaginación es más importante que el conocimiento." - Albert Einstein</li>
+                    <li class="quote-item" tabindex="0">"Haz de cada día tu obra maestra." - John Wooden</li>
+                    <li class="quote-item" tabindex="0">"Lo que no te mata, te hace más fuerte." - Friedrich Nietzsche</li>
+                    </ul>
+            </div>
+
+            <div id="selected-quote-area">
+                <h2>Tu Selección:</h2>
+                <div id="selected-quote-display">
+                    <p><em>Haz clic en una cita de la izquierda para seleccionarla.</em></p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <button id="confirm-button">Estoy segura de la cita</button>
+            <p id="confirmation-message" class="success"></p>
+        </footer>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
