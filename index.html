@@ -3,54 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selector de Citas - Drag & Drop</title>
+    <title>Nati elige su propio castigo</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <section id="access-screen">
-        <h1>Acceso Restringido</h1>
+        <h1>Acceso Restringido...?</h1>
         <form id="access-form">
-            <label for="secret-word">Palabra Secreta:</label>
+            <label for="secret-word">Ingresa una palabra que te enseñé. Pista: Es una canción que nos gusta a ambos:</label>
             <input type="password" id="secret-word" name="secret-word" required>
-            <button type="submit">Entrar</button>
+            <button type="submit">Bajo tu propio riesgo entras acá...</button>
             <p id="error-message" class="error"></p>
         </form>
     </section>
 
     <section id="main-screen" class="hidden">
         <header>
-            <h1>Elige tu cita (Arrastra y Suelta)</h1>
+            <h1>Elige tu Cita con la cual vas a sufrir 😈</h1>
+            <p>He pensado en varios planes para hacer el próximo fin de semana... Los puse pensando que te podrían gustar. Así que arrastra tus planes favoritas al lado derecho.</p>
         </header>
 
         <div class="container">
             <div id="quote-options-container">
                  <h2>Opciones Disponibles:</h2>
                 <ul id="quote-list" class="drop-zone">
-                    <li id="quote-1" class="quote-item" draggable="true">"La vida es lo que pasa mientras estás ocupado haciendo otros planes." - John Lennon</li>
-                    <li id="quote-2" class="quote-item" draggable="true">"El único modo de hacer un gran trabajo es amar lo que haces." - Steve Jobs</li>
-                    <li id="quote-3" class="quote-item" draggable="true">"No cuentes los días, haz que los días cuenten." - Muhammad Ali</li>
-                    <li id="quote-4" class="quote-item" draggable="true">"El éxito es la suma de pequeños esfuerzos repetidos día tras día." - Robert Collier</li>
-                    <li id="quote-5" class="quote-item" draggable="true">"La felicidad no es algo hecho. Proviene de tus propias acciones." - Dalai Lama</li>
-                    <li id="quote-6" class="quote-item" draggable="true">"Cree que puedes y ya estás a medio camino." - Theodore Roosevelt</li>
-                    <li id="quote-7" class="quote-item" draggable="true">"La mejor venganza es un éxito masivo." - Frank Sinatra</li>
-                    <li id="quote-8" class="quote-item" draggable="true">"La imaginación es más importante que el conocimiento." - Albert Einstein</li>
-                    <li id="quote-9" class="quote-item" draggable="true">"Haz de cada día tu obra maestra." - John Wooden</li>
-                    <li id="quote-10" class="quote-item" draggable="true">"Lo que no te mata, te hace más fuerte." - Friedrich Nietzsche</li>
-                    </ul>
+                    <li id="quote-1" class="quote-item" draggable="true">Scaperoom solos o con amigos 👀</li>
+                    <li id="quote-2" class="quote-item" draggable="true">Ir de nuevo a sala de juegos de mesa 🎲, con Jita para practicar español </li>
+                    <li id="quote-3" class="quote-item" draggable="true">Ir al parque Lužánky ⛲🌲 (o en Praga o Pce) y hacer un picnic. Cocinamos antes y llevamos</li>
+                    <li id="quote-4" class="quote-item" draggable="true">Ver la grandiosa y más grande película en español... Shrek en Latino</li>
+                    <li id="quote-5" class="quote-item" draggable="true">En Brno hay un sitio para hacer cerámica o pintar 🎨 y tomar vino mientras 🍷</li>
+                    <li id="quote-6" class="quote-item" draggable="true">Ir a correr juntos 🏃🏼‍♀️🏃🏿‍♂️💨</li>
+                    <li id="quote-7" class="quote-item" draggable="true">Hacer una manualidad para tu abuela 👵🏻</li>
+                    <li id="quote-8" class="quote-item" draggable="true">Hacer un hikem 🌄</li>
+                    <li id="quote-9" class="quote-item" draggable="true">Comer tu nueva comida favorita del momento... Ramen🍜</li>
+                    <li id="quote-10" class="quote-item" draggable="true">Perrear hasta el suelo en una fiesta latina 🪩💃🏼🕺🏻</li>
+                    <li id="quote-11" class="quote-item" draggable="true">Viaje sorpresa... aunque quizás al siguiente que es festivo 👀</li>
+                    <li id="quote-1ě" class="quote-item" draggable="true">Otras opciones... me puedes decir</li>
+                </ul>
             </div>
 
             <div id="selected-quote-area" class="drop-zone">
-                <h2>Tu Selección:</h2>
+                <h2>Aquellos que te gustan 👁️👁️:</h2>
                 <div id="selected-quote-placeholder">
-                    <p><em>Arrastra una cita aquí.</em></p>
+                    <p><em>Más te vale mover más de uno...</em></p>
                 </div>
                 </div>
         </div>
 
         <footer>
-            <button id="confirm-button">Estoy segura de la cita</button>
-            <p id="confirmation-message" class="success"></p>
+            <div class="button-container">
+                 <button id="accept-button" class="action-button">Confío? Si.</button>
+                 <button id="escape-button" class="action-button escapee">Ew, no quiero</button>
+            </div>
+            <p id="escape-message" class="hidden-message">No puedes escapar.</p>
         </footer>
     </section>
 
