@@ -20,6 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const escapeButton = document.getElementById('escape-button');
     const escapeMessage = document.getElementById('escape-message');
 
+    const backgroundMusic = document.getElementById('background-music');
+
     let draggedItem = null;
 
     // --- LÓGICA DE ACCESO ---
@@ -29,6 +31,28 @@ document.addEventListener('DOMContentLoaded', () => {
             accessScreen.classList.add('hidden');
             mainScreen.classList.remove('hidden');
             errorMessage.textContent = '';
+
+            // ---> INICIO: CÓDIGO PARA REPRODUCIR MÚSICA <---
+            if (backgroundMusic) {
+                // Opcional: Ajustar volumen (0.0 = silencio, 1.0 = máximo)
+                backgroundMusic.volume = 0.2; // Poner volumen al 40%
+
+                // Intentar reproducir la música
+                const playPromise = backgroundMusic.play();
+
+                if (playPromise !== undefined) {
+                    playPromise.then(_ => {
+                        // La reproducción automática comenzó con éxito
+                        console.log("Música de fondo iniciada.");
+                    }).catch(error => {
+                        // La reproducción automática fue bloqueada por el navegador
+                        console.error("Error al iniciar música:", error);
+                        // Aquí podrías mostrar un botón "Play" manual si la reproducción automática falla.
+                        // Por ejemplo: alert("El navegador bloqueó la música automática. Actívala manualmente si quieres.");
+                    });
+                }
+            }
+            // ---> FIN: CÓDIGO PARA REPRODUCIR MÚSICA <---
             setupDragAndDrop();
             setupActionButtons(); // Setup new buttons only after login
             updatePlaceholderVisibility();
