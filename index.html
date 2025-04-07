@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selector de Citas</title>
+    <title>Selector de Citas - Drag & Drop</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,32 +20,32 @@
 
     <section id="main-screen" class="hidden">
         <header>
-            <h1>Elige tu cita</h1>
+            <h1>Elige tu cita (Arrastra y Suelta)</h1>
         </header>
 
         <div class="container">
-            <div id="quote-options">
-                <h2>Opciones Disponibles:</h2>
-                <ul id="quote-list">
-                    <li class="quote-item" tabindex="0">"La vida es lo que pasa mientras estás ocupado haciendo otros planes." - John Lennon</li>
-                    <li class="quote-item" tabindex="0">"El único modo de hacer un gran trabajo es amar lo que haces." - Steve Jobs</li>
-                    <li class="quote-item" tabindex="0">"No cuentes los días, haz que los días cuenten." - Muhammad Ali</li>
-                    <li class="quote-item" tabindex="0">"El éxito es la suma de pequeños esfuerzos repetidos día tras día." - Robert Collier</li>
-                    <li class="quote-item" tabindex="0">"La felicidad no es algo hecho. Proviene de tus propias acciones." - Dalai Lama</li>
-                    <li class="quote-item" tabindex="0">"Cree que puedes y ya estás a medio camino." - Theodore Roosevelt</li>
-                    <li class="quote-item" tabindex="0">"La mejor venganza es un éxito masivo." - Frank Sinatra</li>
-                    <li class="quote-item" tabindex="0">"La imaginación es más importante que el conocimiento." - Albert Einstein</li>
-                    <li class="quote-item" tabindex="0">"Haz de cada día tu obra maestra." - John Wooden</li>
-                    <li class="quote-item" tabindex="0">"Lo que no te mata, te hace más fuerte." - Friedrich Nietzsche</li>
+            <div id="quote-options-container">
+                 <h2>Opciones Disponibles:</h2>
+                <ul id="quote-list" class="drop-zone">
+                    <li id="quote-1" class="quote-item" draggable="true">"La vida es lo que pasa mientras estás ocupado haciendo otros planes." - John Lennon</li>
+                    <li id="quote-2" class="quote-item" draggable="true">"El único modo de hacer un gran trabajo es amar lo que haces." - Steve Jobs</li>
+                    <li id="quote-3" class="quote-item" draggable="true">"No cuentes los días, haz que los días cuenten." - Muhammad Ali</li>
+                    <li id="quote-4" class="quote-item" draggable="true">"El éxito es la suma de pequeños esfuerzos repetidos día tras día." - Robert Collier</li>
+                    <li id="quote-5" class="quote-item" draggable="true">"La felicidad no es algo hecho. Proviene de tus propias acciones." - Dalai Lama</li>
+                    <li id="quote-6" class="quote-item" draggable="true">"Cree que puedes y ya estás a medio camino." - Theodore Roosevelt</li>
+                    <li id="quote-7" class="quote-item" draggable="true">"La mejor venganza es un éxito masivo." - Frank Sinatra</li>
+                    <li id="quote-8" class="quote-item" draggable="true">"La imaginación es más importante que el conocimiento." - Albert Einstein</li>
+                    <li id="quote-9" class="quote-item" draggable="true">"Haz de cada día tu obra maestra." - John Wooden</li>
+                    <li id="quote-10" class="quote-item" draggable="true">"Lo que no te mata, te hace más fuerte." - Friedrich Nietzsche</li>
                     </ul>
             </div>
 
-            <div id="selected-quote-area">
+            <div id="selected-quote-area" class="drop-zone">
                 <h2>Tu Selección:</h2>
-                <div id="selected-quote-display">
-                    <p><em>Haz clic en una cita de la izquierda para seleccionarla.</em></p>
+                <div id="selected-quote-placeholder">
+                    <p><em>Arrastra una cita aquí.</em></p>
                 </div>
-            </div>
+                </div>
         </div>
 
         <footer>

@@ -1,116 +1,163 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- CONSTANTES Y VARIABLES ---
-    const SECRET_WORD = 'secreto123'; // ¡CAMBIA ESTO POR TU PALABRA SECRETA!
+    const SECRET_WORD = 'secreto123'; // ¡CAMBIA ESTO!
 
-    // Elementos de la Pantalla de Acceso
+    // Elementos de Acceso (igual que antes)
     const accessScreen = document.getElementById('access-screen');
     const accessForm = document.getElementById('access-form');
     const secretInput = document.getElementById('secret-word');
     const errorMessage = document.getElementById('error-message');
 
-    // Elementos de la Pantalla Principal
+    // Elementos de Pantalla Principal
     const mainScreen = document.getElementById('main-screen');
-    const quoteList = document.getElementById('quote-list');
-    const quoteItems = document.querySelectorAll('.quote-item'); // NodeList de todos los <li>
-    const selectedQuoteDisplay = document.getElementById('selected-quote-display');
+    const quoteList = document.getElementById('quote-list'); // Drop zone izquierda (UL)
+    const selectedQuoteArea = document.getElementById('selected-quote-area'); // Drop zone derecha (DIV)
+    const quoteItems = document.querySelectorAll('.quote-item'); // Nodos de citas (LI)
+    const selectedQuotePlaceholder = document.getElementById('selected-quote-placeholder');
     const confirmButton = document.getElementById('confirm-button');
     const confirmationMessage = document.getElementById('confirmation-message');
 
-    // Variable para guardar la cita seleccionada
-    let currentSelectedQuoteText = null;
-    let currentSelectedItem = null; // Para rastrear el elemento li seleccionado
+    let draggedItem = null; // Para guardar referencia al item arrastrado
 
-    // --- LÓGICA DE ACCESO ---
+    // --- LÓGICA DE ACCESO (igual que antes) ---
     accessForm.addEventListener('submit', (event) => {
-        event.preventDefault(); // Evitar que el formulario se envíe de forma tradicional
-        const enteredWord = secretInput.value;
-
-        if (enteredWord === SECRET_WORD) {
-            // Palabra correcta: Ocultar pantalla de acceso, mostrar pantalla principal
-            accessScreen.classList.add('hidden'); // Oculta pantalla acceso
-            mainScreen.classList.remove('hidden'); // Muestra pantalla principal
-            errorMessage.textContent = ''; // Limpiar mensaje de error si lo hubiera
+        event.preventDefault();
+        if (secretInput.value === SECRET_WORD) {
+            accessScreen.classList.add('hidden');
+            mainScreen.classList.remove('hidden');
+            errorMessage.textContent = '';
+            setupDragAndDrop();
+            updatePlaceholderVisibility(); // Initial check for placeholder
         } else {
-            // Palabra incorrecta
-            errorMessage.textContent = 'Palabra secreta incorrecta. Inténtalo de nuevo.';
-            secretInput.value = ''; // Limpiar el campo
-            secretInput.focus(); // Poner el foco de nuevo en el input
+            errorMessage.textContent = 'Palabra secreta incorrecta.';
+            secretInput.value = '';
+            secretInput.focus();
         }
     });
 
-    // --- LÓGICA DE SELECCIÓN DE CITAS ---
-    quoteItems.forEach(item => {
-        item.addEventListener('click', () => {
-            handleQuoteSelection(item);
+    // --- FUNCIÓN PARA CONFIGURAR DRAG & DROP (igual que antes) ---
+    function setupDragAndDrop() {
+        quoteItems.forEach(item => {
+            item.addEventListener('dragstart', handleDragStart);
+            item.addEventListener('dragend', handleDragEnd);
         });
 
-        // Permitir selección con la tecla Enter para accesibilidad
-        item.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter' || event.key === ' ') { // Barra espaciadora también
-                 event.preventDefault(); // Evitar scroll si se usa espacio
-                 handleQuoteSelection(item);
-            }
+        const dropZones = [quoteList, selectedQuoteArea];
+        dropZones.forEach(zone => {
+            zone.addEventListener('dragover', handleDragOver);
+            zone.addEventListener('dragleave', handleDragLeave);
+            zone.addEventListener('drop', handleDrop);
         });
-    });
+    }
 
-    function handleQuoteSelection(selectedItem) {
-         // Quitar la clase 'selected' del item anteriormente seleccionado (si existe)
-         if (currentSelectedItem) {
-            currentSelectedItem.classList.remove('selected');
-        }
+    // --- MANEJADORES DE EVENTOS DRAG & DROP (Modificación en handleDrop) ---
 
-        // Obtener el texto de la cita
-        currentSelectedQuoteText = selectedItem.textContent;
-
-        // Mostrar la cita en la caja derecha
-        selectedQuoteDisplay.innerHTML = `<p>"${currentSelectedQuoteText}"</p>`; // Usar innerHTML para renderizar como párrafo
-
-        // Marcar el nuevo item como seleccionado
-        selectedItem.classList.add('selected');
-        currentSelectedItem = selectedItem; // Actualizar el item actualmente seleccionado
-
-        // Limpiar mensaje de confirmación si se selecciona una nueva cita
+    function handleDragStart(event) {
+        draggedItem = event.target;
+        event.dataTransfer.setData('text/plain', event.target.id);
+        event.dataTransfer.effectAllowed = 'move';
+        setTimeout(() => {
+            if(draggedItem) draggedItem.classList.add('dragging'); // Check if draggedItem still exists
+        }, 0);
         confirmationMessage.textContent = '';
     }
 
+    function handleDragEnd() {
+        if (draggedItem) {
+            draggedItem.classList.remove('dragging');
+        }
+        // Limpiar clases 'drag-over' de las zonas
+        document.querySelectorAll('.drag-over').forEach(zone => {
+            zone.classList.remove('drag-over');
+        });
+         // Check placeholder visibility AFTER drag operation might have changed content
+        updatePlaceholderVisibility();
+        draggedItem = null;
+    }
 
-    // --- LÓGICA DEL BOTÓN DE CONFIRMACIÓN (SIMULACIÓN DE ENVÍO) ---
+    function handleDragOver(event) {
+        event.preventDefault();
+         const dropZone = event.target.closest('.drop-zone');
+         if (dropZone && draggedItem && dropZone !== draggedItem.parentNode) { // Solo añadir clase si se puede soltar ahí
+            dropZone.classList.add('drag-over');
+            event.dataTransfer.dropEffect = 'move';
+         } else {
+             event.dataTransfer.dropEffect = 'none'; // Indicar que no se puede soltar aquí
+         }
+    }
+
+    function handleDragLeave(event) {
+         const dropZone = event.target.closest('.drop-zone');
+          if (dropZone) {
+              dropZone.classList.remove('drag-over');
+          }
+    }
+
+    function handleDrop(event) {
+        event.preventDefault();
+        const dropZone = event.target.closest('.drop-zone');
+
+        if (dropZone && draggedItem && dropZone !== draggedItem.parentNode) { // Ensure drop target is valid and not the parent itself
+            dropZone.classList.remove('drag-over');
+
+            // *** MODIFICACIÓN CLAVE ***
+            // Ya sea en la lista izquierda o en el área derecha, simplemente añadimos el elemento.
+            // No eliminamos elementos existentes en el área derecha.
+             dropZone.appendChild(draggedItem);
+
+        }
+         // Asegurarse que el estilo de dragging se quite al soltar
+        if (draggedItem) {
+            draggedItem.classList.remove('dragging');
+        }
+         // Actualizar visibilidad del placeholder DESPUÉS de mover el elemento
+        updatePlaceholderVisibility();
+    }
+
+    // --- NUEVA FUNCIÓN para gestionar el placeholder ---
+    function updatePlaceholderVisibility() {
+        const hasItemsSelected = selectedQuoteArea.querySelectorAll('.quote-item').length > 0;
+        if (selectedQuotePlaceholder) {
+            selectedQuotePlaceholder.style.display = hasItemsSelected ? 'none' : 'flex'; // O 'block', según CSS
+        }
+    }
+
+
+    // --- LÓGICA DEL BOTÓN DE CONFIRMACIÓN (Adaptada para Múltiples Citas) ---
     confirmButton.addEventListener('click', () => {
-        if (currentSelectedQuoteText) {
+        // Buscar TODOS los elementos .quote-item dentro del área de selección
+        const selectedQuoteElements = selectedQuoteArea.querySelectorAll('.quote-item');
+
+        if (selectedQuoteElements.length > 0) {
+            // Crear un array con los textos de las citas seleccionadas
+            const selectedQuotesTexts = Array.from(selectedQuoteElements).map(el => el.textContent);
+
             // --- SIMULACIÓN DE ENVÍO DE CORREO ---
             console.log('--- Simulación de Envío de Correo ---');
-            console.log('Destinatario: [Correo del destinatario]'); // Aquí iría la lógica real
-            console.log('Asunto: Nueva cita seleccionada');
+            console.log('Destinatario: [Correo del destinatario]');
+            console.log(`Asunto: ${selectedQuotesTexts.length} citas seleccionadas`);
             console.log('Cuerpo del mensaje:');
-            console.log(`La cita seleccionada es: "${currentSelectedQuoteText}"`);
+            console.log('Las citas seleccionadas son:');
+            selectedQuotesTexts.forEach((quote, index) => {
+                console.log(`${index + 1}. "${quote}"`);
+            });
             console.log('--- Fin Simulación ---');
 
             // Mostrar mensaje de confirmación al usuario
-            confirmationMessage.textContent = `¡Cita "${currentSelectedQuoteText.substring(0, 30)}..." seleccionada! (Simulación de envío exitosa - revisa la consola).`;
-            confirmationMessage.className = 'success'; // Asegurar clase de éxito
+            confirmationMessage.textContent = `¡${selectedQuotesTexts.length} cita(s) seleccionada(s)! (Simulación exitosa - revisa la consola).`;
+            confirmationMessage.className = 'success';
 
-            // Aquí es donde llamarías a tu función real de envío (p.ej., usando fetch con una API o EmailJS)
-            // Ejemplo con EmailJS (requiere configuración previa):
-            /*
-            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
-                selected_quote: currentSelectedQuoteText,
-                // otros parámetros de tu plantilla...
-            }).then(function(response) {
-               console.log('SUCCESS!', response.status, response.text);
-               confirmationMessage.textContent = '¡Correo enviado con éxito!';
-               confirmationMessage.className = 'success';
-            }, function(error) {
-               console.log('FAILED...', error);
-               confirmationMessage.textContent = 'Error al enviar el correo.';
-               confirmationMessage.className = 'error';
-            });
-            */
+            // Aquí iría la llamada a la API real (EmailJS, backend, etc.)
+            // podrías pasar el array 'selectedQuotesTexts' o formatearlo como string
 
         } else {
-            // Si no se ha seleccionado ninguna cita
-            confirmationMessage.textContent = 'Por favor, selecciona una cita de la lista primero.';
-            confirmationMessage.className = 'error'; // Usar clase de error
+            // Si no se ha movido ninguna cita al área derecha
+            confirmationMessage.textContent = 'Por favor, arrastra una o más citas al área de selección primero.';
+            confirmationMessage.className = 'error';
         }
     });
+
+     // Llamada inicial para asegurar estado correcto del placeholder al cargar (después de login)
+     // (Movido a la lógica de acceso para que se ejecute después de mostrar el mainScreen)
 
 }); // Fin del DOMContentLoaded

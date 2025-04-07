@@ -1,4 +1,4 @@
-/* Estilos Generales */
+/* Estilos Generales (mantener los anteriores) */
 body {
     font-family: sans-serif;
     line-height: 1.6;
@@ -6,13 +6,13 @@ body {
     padding: 20px;
     background-color: #f4f4f4;
     color: #333;
-    display: flex; /* Usado para centrar la pantalla de acceso inicial */
+    display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
 }
 
-/* Contenedores de Pantalla */
+/* Contenedores de Pantalla (mantener los anteriores) */
 #access-screen,
 #main-screen {
     background-color: #fff;
@@ -20,171 +20,123 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 800px; /* Ancho máximo para pantallas grandes */
+    max-width: 800px;
     text-align: center;
 }
-
 #main-screen {
-    text-align: left; /* Restablecer alineación para el contenido principal */
+    text-align: left;
 }
+.hidden { display: none; }
+h1, h2 { color: #0056b3; margin-bottom: 15px; }
+h1 { text-align: center; margin-bottom: 30px; }
 
-/* Ocultar/Mostrar Pantallas */
-.hidden {
-    display: none;
-}
+/* Formulario de Acceso (mantener los anteriores) */
+#access-form label { display: block; margin-bottom: 5px; font-weight: bold; }
+#access-form input[type="password"] { width: calc(100% - 22px); padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; }
+#access-form button { padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; transition: background-color 0.3s ease; }
+#access-form button:hover { background-color: #0056b3; }
+.error { color: #dc3545; font-size: 0.9em; margin-top: 10px; min-height: 1.2em; }
+.success { color: #28a745; font-size: 0.9em; margin-top: 10px; min-height: 1.2em; }
 
-/* Encabezados */
-h1, h2 {
-    color: #0056b3; /* Un azul oscuro */
-    margin-bottom: 15px;
-}
-h1 {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-/* Formulario de Acceso */
-#access-form label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-#access-form input[type="password"] {
-    width: calc(100% - 22px); /* Ajustar ancho considerando padding/border */
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-#access-form button {
-    padding: 10px 20px;
-    background-color: #007bff; /* Azul primario */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-#access-form button:hover {
-    background-color: #0056b3; /* Azul más oscuro al pasar el ratón */
-}
-
-/* Mensajes de error/éxito */
-.error {
-    color: #dc3545; /* Rojo */
-    font-size: 0.9em;
-    margin-top: 10px;
-    min-height: 1.2em; /* Para evitar saltos de layout */
-}
-.success {
-    color: #28a745; /* Verde */
-    font-size: 0.9em;
-    margin-top: 10px;
-    min-height: 1.2em;
-}
-
-
-/* Pantalla Principal: Contenedor de Cajas */
+/* Pantalla Principal: Contenedor de Cajas (mantener) */
 .container {
     display: flex;
-    gap: 30px; /* Espacio entre las cajas */
+    gap: 30px;
     margin-bottom: 30px;
 }
 
-/* Cajas Izquierda y Derecha */
-#quote-options,
+/* Cajas Izquierda y Derecha (ajustes menores) */
+#quote-options-container, /* Nuevo contenedor para el título y la lista */
 #selected-quote-area {
-    flex: 1; /* Hace que ambas cajas ocupen el mismo espacio */
+    flex: 1;
     padding: 20px;
-    border: 1px solid #eee;
+    border: 2px dashed #ccc; /* Borde inicial para indicar zona de drop */
     border-radius: 5px;
     background-color: #f9f9f9;
-    min-height: 250px; /* Altura mínima para visualización */
+    min-height: 250px;
+    display: flex; /* Para controlar el contenido interno */
+    flex-direction: column; /* Apilar título y lista/contenido */
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* Transición suave */
 }
 
-/* Lista de Citas */
+/* Zona de Drop Específica (la lista y el área derecha) */
+.drop-zone {
+     /* El estilo base ahora está en los contenedores padre */
+}
+
+/* Lista de Citas (ajustes menores) */
 #quote-list {
     list-style: none;
-    padding: 0;
+    padding: 10px; /* Añadir padding interno */
     margin: 0;
-    max-height: 300px; /* Permitir scroll si hay muchas citas */
+    /* max-height: 300px; Quitar altura fija para que crezca/decrezca */
     overflow-y: auto;
+    flex-grow: 1; /* Para que ocupe el espacio disponible */
+    min-height: 100px; /* Altura mínima para la lista */
 }
 
+/* Ítem de Cita */
 .quote-item {
-    padding: 10px;
-    margin-bottom: 8px;
+    padding: 12px; /* Un poco más de padding */
+    margin-bottom: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
     background-color: #fff;
-    cursor: pointer;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
+    cursor: grab; /* Indicar que es agarrable */
+    transition: background-color 0.2s ease, border-color 0.2s ease, opacity 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.quote-item:last-child {
+    margin-bottom: 0; /* Quitar margen del último ítem */
 }
 
-.quote-item:hover, .quote-item:focus {
-    background-color: #e9ecef; /* Gris claro al pasar el ratón o enfocar */
+/* Estilo cuando se está arrastrando el ítem */
+.quote-item.dragging {
+    opacity: 0.5;
+    cursor: grabbing; /* Cambiar cursor mientras se arrastra */
     border-color: #007bff;
-    outline: none; /* Quitar el borde de foco por defecto si se personaliza */
 }
 
-.quote-item.selected {
-    background-color: #d1ecf1; /* Un azul claro para indicar selección */
-    border-color: #007bff;
-    font-weight: bold;
+/* Estilo para la zona de drop cuando se arrastra algo sobre ella */
+.drop-zone.drag-over {
+    background-color: #e9ecef; /* Fondo grisáceo claro */
+    border-color: #007bff; /* Borde azul para resaltar */
+    border-style: solid;
 }
 
 
-/* Área de Cita Seleccionada */
-#selected-quote-display {
+/* Área de Cita Seleccionada (ajustes) */
+#selected-quote-area {
+   /* Hereda estilos de .drop-zone y su propio contenedor */
+}
+#selected-quote-placeholder {
     margin-top: 10px;
     padding: 15px;
-    background-color: #e2e3e5; /* Un fondo grisáceo */
-    border-radius: 4px;
-    min-height: 50px; /* Para que tenga algo de espacio */
-    font-style: italic;
+    text-align: center;
+    color: #6c757d; /* Color gris */
+    flex-grow: 1; /* Ocupa espacio si no hay cita */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* Cuando hay una cita, el placeholder debe ocultarse (manejado por JS) */
+#selected-quote-area .quote-item {
+    /* El estilo del quote-item se aplica automáticamente */
+    cursor: default; /* No tiene sentido agarrar la cita seleccionada aquí */
+    margin: 10px 0 0 0; /* Ajustar margen cuando está en la caja derecha */
 }
 
-/* Botón de Confirmación */
-footer {
-    text-align: center; /* Centrar el botón y mensaje de confirmación */
-}
 
-#confirm-button {
-    padding: 12px 25px;
-    background-color: #28a745; /* Verde */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1.1em;
-    transition: background-color 0.3s ease;
-}
+/* Botón de Confirmación (mantener) */
+footer { text-align: center; }
+#confirm-button { padding: 12px 25px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1.1em; transition: background-color 0.3s ease; }
+#confirm-button:hover { background-color: #218838; }
 
-#confirm-button:hover {
-    background-color: #218838; /* Verde más oscuro */
-}
-
-/* Responsividad Básica */
+/* Responsividad Básica (mantener) */
 @media (max-width: 768px) {
-    body {
-        padding: 10px;
-    }
-    #access-screen,
-    #main-screen {
-        padding: 20px;
-    }
-    .container {
-        flex-direction: column; /* Apilar las cajas en pantallas pequeñas */
-        gap: 20px;
-    }
-    #quote-options,
-    #selected-quote-area {
-        min-height: 150px; /* Reducir altura mínima en móvil */
-    }
-    #quote-list {
-        max-height: 200px; /* Reducir altura máxima de la lista */
-    }
+    body { padding: 10px; }
+    #access-screen, #main-screen { padding: 20px; }
+    .container { flex-direction: column; gap: 20px; }
+    #quote-options-container, #selected-quote-area { min-height: 150px; }
+    #quote-list { /* max-height: 200px; */ } /* Quitar altura máxima fija */
 }
