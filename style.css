@@ -1,7 +1,7 @@
 /* --- Color Palette --- */
 :root {
-    --bg-light-gray: #feef79;          /* Very dark gray/blue background (was light gray) */
-    --container-bg: #84ecc3;         /* Dark gray container (was white) */
+    --bg-light-gray: #111827;          /* Very dark gray/blue background (was light gray) */
+    --container-bg: #1f2937;         /* Dark gray container (was white) */
     --border-gray: #4b5563;          /* Medium gray border (visible on dark container) */
     --text-gray: #949292;            /* Light gray normal text (was medium-dark gray) */
     --text-dark: #f9fafb;             /* Off-white headings/important text (was off-black) */
